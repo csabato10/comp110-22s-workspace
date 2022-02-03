@@ -3,7 +3,7 @@
 __author__: str = "730466575"
 
 
-wordle: str = "pick"
+wordle: str = "python"
 word: str = input("What is your " + str(len(wordle)) + "-letter guess? ")
 emojis: str = ""
 letter_check: bool = False
