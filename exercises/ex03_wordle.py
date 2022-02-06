@@ -1,6 +1,6 @@
 """Structured Wordle."""
 
-author = "730466575"
+__author__: str = "730466575"
 
 
 def contains_char(word: str, letter: str) -> bool:
@@ -16,26 +16,27 @@ def contains_char(word: str, letter: str) -> bool:
 
 
 def emojified(guess: str, secret: str) -> str:
+    """Returns the emoji associated with the letter."""
     assert len(guess) == len(secret)
     emoji: str = ""
     i: int = 0
-
     while i < len(secret):
         if guess[i] == secret[i]:
             emoji += "\U0001F7E9"
         elif contains_char(secret, guess[i]):
             emoji += "\U0001F7E8"
-        else:
+        elif not contains_char(secret, guess[i]):
             emoji += "\U00002B1C"
         i += 1
 
     return emoji
 
 
-def input_guess(exp_len: int) -> str:
-    user_input: str = input(f"Enter a {exp_len} character word: ")
-    while len(user_input) != exp_len:
-        user_input = input(f"That wasn't {exp_len} characters! Try again: ")
+def input_guess(length: int) -> str:
+    """Makes sure user guess equals the length of the secret word."""
+    user_input: str = input(f"Enter a {length} character word: ")
+    while len(user_input) != length:
+        user_input = input(f"That wasn't {length} chars! Try again: ")
     
     return user_input
 
@@ -43,8 +44,8 @@ def input_guess(exp_len: int) -> str:
 def main() -> None:
     """The entrypoint of the porgram and main game loop."""
     turn: int = 1
-    secret: str = "sharts"
-    while turn < 7:
+    secret: str = "codes"
+    while turn <= 6:
         print(f"=== Turn {turn}/6 ===")
         guess: str = input_guess(len(secret))
         print(emojified(guess, secret))
@@ -53,9 +54,10 @@ def main() -> None:
             turn = 7
         else:
             turn += 1
-            if turn >= 6:
-                print("X/6 - Sorry, try again tomorrow!")
-
+        
+        if turn > 6:
+            print("X/6 - Sorry, try again tomorrow!")
+                
 
 if __name__ == "__main__":
     main()
